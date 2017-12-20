@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Happy Hours !</string>
+    <!--
+    <string name="lun">Lun</string>
+    <string name="mar">Mar</string>
+    <string name="mer">Mer</string>
+    <string name="jeu">Jeu</string>
+    <string name="ven">Ven</string>
+    <string name="sam">Sam</string>
+    <string name="dim">Dim</string>
+    -->
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="sun">Sun</string>
+
+    <string name="credit_time">Your credit time is:</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+</resources>
