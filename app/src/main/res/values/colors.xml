@@ -7,6 +7,10 @@
     <color name="colorBlack">#000000</color>
 
 
+    <color name="color_black">#000000</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_month">#3498DB</color>
+    <color name="color_0">#BDC3C7</color>
     <color name="color_m15">#EF9A9A</color>
     <color name="color_m30">#E57373</color>
     <color name="color_m45">#EF5350</color>

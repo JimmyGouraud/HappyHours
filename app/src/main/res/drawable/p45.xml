@@ -4,12 +4,12 @@
 
     <!-- View background color -->
     <solid
-        android:color="#FF0000" >
+        android:color="@color/color_p45" >
     </solid>
 
     <!-- View border color and width -->
     <stroke
-        android:width="3dp"
+        android:width="5dp"
         android:color="#FFFFFF" >
     </stroke>
 

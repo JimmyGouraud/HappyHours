@@ -1,7 +1,9 @@
 package com.krazyxx.happyhours.calendar;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -23,15 +25,14 @@ public class CalendarDisplay {
     private MainActivity _mainActivity;
 
     private static GregorianCalendar _calendar;
-    private ArrayList<Date> _datesSaved;
     private Date[] _calendarDate;
+    CalendarAdapter _calendarAdapter;
 
     private static String _months[] = { "January", "February", "March", "April", "May", "June",
             "July", "Aout", "September", "October", "November", "December" };
 
     public CalendarDisplay(MainActivity mainActivity) {
         _mainActivity = mainActivity;
-        _datesSaved = (ArrayList<Date>) mainActivity.getSavedDate();
 
         _calendar = (GregorianCalendar) GregorianCalendar.getInstance();
         _calendarDate = new Date[7*6];
@@ -43,27 +44,18 @@ public class CalendarDisplay {
 
     private void initGridView() {
         GridView calendarGridview = _mainActivity.findViewById(R.id.calendar_gridview);
-        CalendarAdapter calendarAdapter = new CalendarAdapter(_mainActivity.getApplicationContext(), android.R.layout.simple_list_item_1, _calendarDate);
-        calendarGridview.setAdapter(calendarAdapter);
+        _calendarAdapter = new CalendarAdapter(_mainActivity.getApplicationContext(), android.R.layout.simple_list_item_1, _calendarDate);
+        calendarGridview.setAdapter(_calendarAdapter);
 
         calendarGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View viewDateCalendar, int i, long l) {
 
-                CalendarAlertDialog builder = new CalendarAlertDialog(_mainActivity, view, _calendarDate[i]);
+                final CalendarAlertDialog builder = new CalendarAlertDialog(_mainActivity, viewDateCalendar, _calendarDate[i]);
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
-                int value = (_calendarDate[i].day() % 2 == 1) ? -15 : 15;
-
-                Date newDate = new Date(_calendarDate[i]);
-                newDate.setValue(value);
-
-                if (isNewDate(newDate)) {
-                    saveDate(newDate);
-                }
-
-                _mainActivity.updateDuration(computeDuration());
+                Log.d("onItemClick", "success?");
+                //saveDate(_calendarDate[i]);
             }
         });
     }
@@ -81,7 +73,7 @@ public class CalendarDisplay {
                                  _calendar.get(Calendar.YEAR),
                                  0);
 
-            for (Date dateSaved : _datesSaved) {
+            for (Date dateSaved : _mainActivity.getSavedDate()) {
                 if (date.isEqual(dateSaved)) {
                     date.setValue(dateSaved.value());
                     break;
@@ -94,33 +86,21 @@ public class CalendarDisplay {
             _calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
 
-        _mainActivity.updateDuration(computeDuration());
-    }
-
-    private int computeDuration() {
-        int minutes = 0;
-        for (Date date : _datesSaved) {
-            minutes += date.value();
-        }
-        return minutes;
+        _mainActivity.updateDuration();
     }
 
     private String getDate() {
         return _months[_calendar.get(Calendar.MONTH)] + ", " + _calendar.get(Calendar.YEAR);
     }
 
-    private boolean isNewDate(Date newDate) {
-        for (Date date : _datesSaved) {
-            if (newDate.isEqual(date)) {
-                return false;
+    public void updateDate(Date newDate) {
+        for (Date date : _calendarDate) {
+            if (date.isEqual(newDate)) {
+                date.setValue(newDate.value());
+                break;
             }
         }
-        return true;
-    }
 
-    private void saveDate(Date date) {
-        Log.d("saveDate", "date saved : " + _datesSaved.size());
-        _datesSaved.add(date);
-        _mainActivity.saveDate(date);
+        _calendarAdapter.notifyDataSetChanged();
     }
 }

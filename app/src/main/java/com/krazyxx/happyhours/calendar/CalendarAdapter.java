@@ -2,7 +2,9 @@ package com.krazyxx.happyhours.calendar;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -17,49 +19,47 @@ import com.krazyxx.happyhours.database.Date;
  */
 
 class CalendarAdapter extends ArrayAdapter<Date> {
-    private Context _context;
     private Date[] _dates;
+    LayoutInflater _inflater;
+
 
     public CalendarAdapter(Context context, int resource, Date[] dates) {
         super(context, resource, dates);
-        this._context = context;
         this._dates = dates;
+        this._inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView textView = new TextView(this._context);
-        textView.setText(String.valueOf(_dates[position].day()));
-        textView.setGravity(Gravity.CENTER);
-        textView.setHeight(100);
+        View view;
+        view = _inflater.inflate(R.layout.date, parent, false);
+        TextView textView = view.findViewById(R.id.test);
+        textView.setText(String.valueOf(this._dates[position].day()));
 
         switch (_dates[position].value()) {
             case -15:
-                textView.setBackgroundColor(_context.getResources().getColor(R.color.color_m15));
+                textView.setBackgroundResource(R.drawable.m15);
                 break;
             case -30:
-                textView.setBackgroundColor(_context.getResources().getColor(R.color.color_m30));
+                textView.setBackgroundResource(R.drawable.m30);
                 break;
             case -45:
-                textView.setBackgroundColor(_context.getResources().getColor(R.color.color_m45));
+                textView.setBackgroundResource(R.drawable.m45);
                 break;
             case -60:
-                textView.setBackgroundColor(_context.getResources().getColor(R.color.color_m60));
+                textView.setBackgroundResource(R.drawable.m60);
                 break;
             case 15:
-                textView.setBackgroundColor(_context.getResources().getColor(R.color.color_p15));
+                textView.setBackgroundResource(R.drawable.p15);
                 break;
             case 30:
-                textView.setBackgroundColor(_context.getResources().getColor(R.color.color_p30));
+                textView.setBackgroundResource(R.drawable.p30);
                 break;
             case 45:
-                textView.setBackgroundColor(_context.getResources().getColor(R.color.color_p45));
+                textView.setBackgroundResource(R.drawable.p45);
                 break;
             case 60:
-                textView.setBackgroundColor(_context.getResources().getColor(R.color.color_p60));
-                break;
-            default:
-                textView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                textView.setBackgroundResource(R.drawable.p60);
                 break;
         }
 
@@ -70,6 +70,6 @@ class CalendarAdapter extends ArrayAdapter<Date> {
             textView.setTextColor(Color.parseColor("#424242"));
         }
 
-        return textView;
+        return view;
     }
 }

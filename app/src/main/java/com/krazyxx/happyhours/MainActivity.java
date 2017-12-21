@@ -25,14 +25,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         _database = AppDatabase.getAppDatabase(this);
-        //_db.clearDatabase();
-        Log.d("Tag", "Saved date number: " + _database.dateDao().countDates());
+        //_database.clearDatabase();
+        Log.d("onCreate", "Saved date number: " + _database.dateDao().countDates());
 
         _calendarDisplay = new CalendarDisplay(this);
 
     }
 
-    public void updateDuration(int durationTime) {
+    private int computeDuration() {
+        int durationTime = 0;
+        for (Date dateSaved : _database.dateDao().getAll()) {
+            durationTime += dateSaved.value();
+        }
+        return durationTime;
+    }
+
+    public void updateDuration() {
+        int durationTime = computeDuration();
         TextView durationView = findViewById(R.id.duration);
 
         String timer;
@@ -53,7 +62,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveDate(Date date) {
+        for (Date dateSaved : _database.dateDao().getAll()) {
+            if (dateSaved.isEqual(date)) {
+                _database.dateDao().delete(dateSaved);
+                break;
+            }
+        }
         _database.dateDao().insertAll(date);
+        _calendarDisplay.updateDate(date);
+        updateDuration();
     }
 
     public List<Date> getSavedDate() {
