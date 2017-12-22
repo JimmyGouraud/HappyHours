@@ -9,8 +9,22 @@
 
     <color name="color_black">#000000</color>
     <color name="color_white">#ffffff</color>
-    <color name="color_month">#3498DB</color>
-    <color name="color_0">#BDC3C7</color>
+
+
+    <color name="color_january"  >#1abc9c</color>
+    <color name="color_february" >#2ecc71</color>
+    <color name="color_march"    >#3498db</color>
+    <color name="color_april"    >#9b59b6</color>
+    <color name="color_may"      >#f1c40f</color>
+    <color name="color_june"     >#e67e22</color>
+    <color name="color_july"     >#e74c3c</color>
+    <color name="color_august"   >#27ae60</color>
+    <color name="color_september">#2980b9</color>
+    <color name="color_october"  >#8e44ad</color>
+    <color name="color_november" >#f39c12</color>
+    <color name="color_december" >#d35400</color>
+
+    <color name="color_0"  >#BDC3C7</color>
     <color name="color_m15">#EF9A9A</color>
     <color name="color_m30">#E57373</color>
     <color name="color_m45">#EF5350</color>
@@ -21,4 +35,5 @@
     <color name="color_p45">#66BB6A</color>
     <color name="color_p60">#4CAF50</color>
     <color name="color_p75">#43A047</color>
+
     </resources>

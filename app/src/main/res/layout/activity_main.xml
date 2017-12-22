@@ -6,11 +6,11 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/layout_month_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:background="@color/color_month"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/date_month_year"
@@ -25,14 +25,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_days"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_month"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/sun"
+            android:id="@+id/mon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -42,7 +42,7 @@
             android:textStyle="bold"
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/mon"
+            android:id="@+id/tue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -52,7 +52,7 @@
             android:textStyle="bold"
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/tue"
+            android:id="@+id/wed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -62,7 +62,7 @@
             android:textStyle="bold"
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/wed"
+            android:id="@+id/thu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -72,7 +72,7 @@
             android:textStyle="bold"
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/thu"
+            android:id="@+id/fri"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -82,7 +82,7 @@
             android:textStyle="bold"
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/fri"
+            android:id="@+id/sat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -92,7 +92,7 @@
             android:textStyle="bold"
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/sat"
+            android:id="@+id/sun"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"

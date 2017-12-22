@@ -25,7 +25,7 @@ class CalendarAlertDialog extends AlertDialog.Builder {
     Date _date;
     MainActivity _mainActivity;
 
-    CalendarAlertDialog(MainActivity mainActivity, View viewDateCalendar, Date date) {
+    CalendarAlertDialog(MainActivity mainActivity, View viewDateCalendar, Date date, int color) {
         super(mainActivity);
         _mainActivity = mainActivity;
         _date = date;
@@ -35,6 +35,8 @@ class CalendarAlertDialog extends AlertDialog.Builder {
         this._inflater = (LayoutInflater) _mainActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = _inflater.inflate(R.layout.duration, null);
         initTextViews(view);
+
+        view.findViewById(R.id.title_alertDialog).setBackgroundColor(color);
 
         this.setView(view);
 

@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("onCreate", "Saved date number: " + _database.dateDao().countDates());
 
         _calendarDisplay = new CalendarDisplay(this);
-
     }
 
     private int computeDuration() {
