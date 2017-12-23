@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         _database = AppDatabase.getAppDatabase(this);
         //_database.clearDatabase();
-        Log.d("onCreate", "Saved date number: " + _database.dateDao().countDates());
 
         _calendarDisplay = new CalendarDisplay(this);
     }

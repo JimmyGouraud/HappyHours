@@ -1,4 +1,4 @@
-package com.krazyxx.happyhours.Duration;
+package com.krazyxx.happyhours.duration;
 
 /**
  * Created by Krazyxx on 23/12/2017.

@@ -1,13 +1,17 @@
-package com.krazyxx.happyhours.Duration;
+package com.krazyxx.happyhours.duration;
 
+
+import android.support.annotation.NonNull;
 
 import com.krazyxx.happyhours.R;
+
+import java.util.Iterator;
 
 /**
  * Created by Krazyxx on 23/12/2017.
  */
 
-public class Durations {
+public class Durations implements Iterable<Duration> {
     private Duration _durations[] = {
             new Duration(0,   R.color.color_0,   R.id.m0),
             new Duration(15,  R.color.color_p15, R.id.p15),
@@ -52,5 +56,30 @@ public class Durations {
 
     public Duration get(int i) {
         return _durations[i];
+    }
+
+    @NonNull
+    @Override
+    public Iterator<Duration> iterator() {
+        Iterator<Duration> it = new Iterator<Duration>() {
+
+            private int currentIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < length && _durations[currentIndex] != null;
+            }
+
+            @Override
+            public Duration next() {
+                return _durations[currentIndex++];
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return it;
     }
 }
