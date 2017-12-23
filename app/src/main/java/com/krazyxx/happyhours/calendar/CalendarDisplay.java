@@ -40,7 +40,7 @@ public class CalendarDisplay {
             R.color.color_april, R.color.color_may, R.color.color_june,
             R.color.color_july, R.color.color_august, R.color.color_september,
             R.color.color_october, R.color.color_november, R.color.color_december};
-    
+
 
     public CalendarDisplay(MainActivity mainActivity) {
         _mainActivity = mainActivity;

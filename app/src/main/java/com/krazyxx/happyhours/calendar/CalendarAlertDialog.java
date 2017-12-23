@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,18 @@ class CalendarAlertDialog extends AlertDialog.Builder {
     Date _date;
     MainActivity _mainActivity;
 
+
+    int buttonsDuration[] = { R.id.m0,
+            R.id.p15, R.id.p30, R.id.p45, R.id.p60,
+            R.id.m15, R.id.m30, R.id.m45, R.id.m60
+    };
+
+    int timesDuration[] = { 0, 15, 30, 45, 60, -15, -30, -45, -60 };
+
+    private static int _durationColor[] = { R.color.color_0,
+            R.color.color_p15, R.color.color_p30, R.color.color_p45, R.color.color_p60,
+            R.color.color_m15, R.color.color_m30, R.color.color_m45, R.color.color_m60 };
+
     CalendarAlertDialog(MainActivity mainActivity, View viewDateCalendar, Date date, int color) {
         super(mainActivity);
         _mainActivity = mainActivity;
@@ -43,36 +56,14 @@ class CalendarAlertDialog extends AlertDialog.Builder {
         this.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 _date.setValue(_value);
+                GradientDrawable gradientDrawable = (GradientDrawable) _mainActivity.getDrawable(R.drawable.duration);
 
-                switch (_value) {
-                    case -15:
-                        _viewDateCalendar.setBackgroundResource(R.drawable.m15);
-                        break;
-                    case -30:
-                        _viewDateCalendar.setBackgroundResource(R.drawable.m30);
-                        break;
-                    case -45:
-                        _viewDateCalendar.setBackgroundResource(R.drawable.m45);
-                        break;
-                    case -60:
-                        _viewDateCalendar.setBackgroundResource(R.drawable.m60);
-                        break;
-                    case 15:
-                        _viewDateCalendar.setBackgroundResource(R.drawable.p15);
-                        break;
-                    case 30:
-                        _viewDateCalendar.setBackgroundResource(R.drawable.p30);
-                        break;
-                    case 45:
-                        _viewDateCalendar.setBackgroundResource(R.drawable.p45);
-                        break;
-                    case 60:
-                        _viewDateCalendar.setBackgroundResource(R.drawable.p60);
-                        break;
-                    default:
-                        _viewDateCalendar.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                        break;
+                for (int buttonsDuration : buttonsDuration) {
+                    GradientDrawable gd = (GradientDrawable) view.findViewById(buttonsDuration).getBackground();
+                    gd.setStroke(5, Color.WHITE);
                 }
+
+                _viewDateCalendar.setBackground(gradientDrawable);
 
                 _mainActivity.saveDate(_date);
             }
@@ -83,87 +74,30 @@ class CalendarAlertDialog extends AlertDialog.Builder {
         });
     }
 
-    private void initTextViews(View view) {
-        TextView textView;
-        textView = view.findViewById(R.id.p15);
-        textView.setClickable(true);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _value = 15;
-            }
-        });
 
-        textView = view.findViewById(R.id.p30);
-        textView.setClickable(true);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _value = 30;
-            }
-        });
+    private void initTextViews(final View view) {
+        for (int i = 0; i < buttonsDuration.length; i++) {
+            final int value = timesDuration[i];
+            TextView textView = view.findViewById(buttonsDuration[i]);
 
-        textView = view.findViewById(R.id.p45);
-        textView.setClickable(true);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _value = 45;
-            }
-        });
+            GradientDrawable gradientDrawable = (GradientDrawable) view.findViewById(buttonsDuration[i]).getBackground();
+            gradientDrawable.setColor(_mainActivity.getResources().getColor(_durationColor[i]));
+            gradientDrawable.setStroke(5, Color.WHITE);
 
-        textView = view.findViewById(R.id.p60);
-        textView.setClickable(true);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _value = 60;
-            }
-        });
+            textView.setClickable(true);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    _value = value;
 
-        textView = view.findViewById(R.id.m15);
-        textView.setClickable(true);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _value = -15;
-            }
-        });
-
-        textView = view.findViewById(R.id.m30);
-        textView.setClickable(true);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _value = -30;
-            }
-        });
-
-        textView = view.findViewById(R.id.m45);
-        textView.setClickable(true);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _value = -45;
-            }
-        });
-
-        textView = view.findViewById(R.id.m60);
-        textView.setClickable(true);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _value = -60;
-            }
-        });
-
-        textView = view.findViewById(R.id.m0);
-        textView.setClickable(true);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _value = 0;
-            }
-        });
+                    for (int buttonsDuration : buttonsDuration) {
+                        GradientDrawable d = (GradientDrawable) view.findViewById(buttonsDuration).getBackground();
+                        d.setStroke(5, Color.WHITE);
+                    }
+                    GradientDrawable d = (GradientDrawable) v.getBackground();
+                    d.setStroke(5, Color.BLUE);
+                }
+            });
+        }
     }
 }

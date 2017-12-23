@@ -2,6 +2,7 @@ package com.krazyxx.happyhours.calendar;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,10 +22,17 @@ import com.krazyxx.happyhours.database.Date;
 class CalendarAdapter extends ArrayAdapter<Date> {
     private Date[] _dates;
     LayoutInflater _inflater;
+    Context _context;
 
+    int timesDuration[] = { 0, 15, 30, 45, 60, -15, -30, -45, -60 };
+
+    private static int _durationColor[] = { R.color.color_white,
+            R.color.color_p15, R.color.color_p30, R.color.color_p45, R.color.color_p60,
+            R.color.color_m15, R.color.color_m30, R.color.color_m45, R.color.color_m60 };
 
     public CalendarAdapter(Context context, int resource, Date[] dates) {
         super(context, resource, dates);
+        this._context = context;
         this._dates = dates;
         this._inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -36,32 +44,16 @@ class CalendarAdapter extends ArrayAdapter<Date> {
         TextView textView = view.findViewById(R.id.test);
         textView.setText(String.valueOf(this._dates[position].day()));
 
-        switch (_dates[position].value()) {
-            case -15:
-                textView.setBackgroundResource(R.drawable.m15);
-                break;
-            case -30:
-                textView.setBackgroundResource(R.drawable.m30);
-                break;
-            case -45:
-                textView.setBackgroundResource(R.drawable.m45);
-                break;
-            case -60:
-                textView.setBackgroundResource(R.drawable.m60);
-                break;
-            case 15:
-                textView.setBackgroundResource(R.drawable.p15);
-                break;
-            case 30:
-                textView.setBackgroundResource(R.drawable.p30);
-                break;
-            case 45:
-                textView.setBackgroundResource(R.drawable.p45);
-                break;
-            case 60:
-                textView.setBackgroundResource(R.drawable.p60);
-                break;
+
+        GradientDrawable gradientDrawable = (GradientDrawable) _context.getDrawable(R.drawable.duration);
+        assert gradientDrawable != null;
+        gradientDrawable.setStroke(10, _context.getResources().getColor(R.color.color_white));
+        for (int i = 0; i < timesDuration.length; i++) {
+            if (timesDuration[i] == _dates[position].value()) {
+                gradientDrawable.setColor(_context.getResources().getColor(_durationColor[i]));
+            }
         }
+        textView.setBackground(gradientDrawable);
 
         int actualMonth = _dates[15].month();
         if (_dates[position].month() != actualMonth) {
