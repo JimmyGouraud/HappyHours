@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -29,8 +30,7 @@ class CalendarAlertDialog extends AlertDialog.Builder {
     CalendarAlertDialog(MainActivity mainActivity, Date date, int colorTitle) {
         super(mainActivity);
         _mainActivity = mainActivity;
-        _currentDate = date;
-
+        _currentDate = date.clone();
         initAlertDialog(colorTitle);
     }
 
@@ -48,7 +48,8 @@ class CalendarAlertDialog extends AlertDialog.Builder {
         Drawable drawable = descriptionButton.getBackground();
         drawable.setColorFilter(colorTitle, PorterDuff.Mode.SRC_ATOP);
         descriptionButton.setBackground(drawable);
-
+        descriptionButton.setHighlightColor(colorTitle);
+        descriptionButton.setHintTextColor(colorTitle);
 
         // Init duration buttons
         Durations durations = new Durations();

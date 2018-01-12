@@ -33,7 +33,7 @@ public class Date {
         _month = month;
         _year  = year;
         _value = value;
-        _note = "";
+        _note  = "";
     }
 
     public boolean isEqual(Date date) {
@@ -73,5 +73,11 @@ public class Date {
         }
 
         return sign + Math.abs(_value / 60) + "h " + Math.abs(_value % 60) + "min !";
+    }
+
+    public Date clone() {
+        Date dateCloned = new Date(this._day, this._month, this._year, this._value);
+        dateCloned.setNote(this._note);
+        return dateCloned;
     }
 }
