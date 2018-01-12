@@ -3,9 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorBlack">#000000</color>
-
 
     <color name="color_black">#000000</color>
     <color name="color_white">#ffffff</color>
@@ -24,17 +21,19 @@
     <color name="color_november" >#f39c12</color>
     <color name="color_december" >#d35400</color>
 
+    <color name="color_actual_month">#424242</color>
+    <color name="color_other_month" >#9E9E9E</color>
+
     <!-- Duration Color -->
-    <color name="color_0"  >#BDC3C7</color>
     <color name="color_m15">#EF9A9A</color>
     <color name="color_m30">#E57373</color>
     <color name="color_m45">#EF5350</color>
     <color name="color_m60">#F44336</color>
-    <color name="color_m75">#E53935</color>
     <color name="color_p15">#A5D6A7</color>
     <color name="color_p30">#81C784</color>
     <color name="color_p45">#66BB6A</color>
     <color name="color_p60">#4CAF50</color>
-    <color name="color_p75">#43A047</color>
+    <color name="color_reset_time"  >#BDC3C7</color>
+
 
 </resources>

@@ -26,19 +26,15 @@ public class Date {
     @ColumnInfo(name = "value")
     private int _value;
 
+    @ColumnInfo(name = "note")
+    private String _note;
 
     public Date(int day, int month, int year, int value) {
         _day   = day;
         _month = month;
         _year  = year;
         _value = value;
-    }
-
-    public Date(Date date) {
-        _day   = date.day();
-        _month = date.month();
-        _year  = date.year();
-        _value = date.value();
+        _note = "";
     }
 
     public boolean isEqual(Date date) {
@@ -47,18 +43,36 @@ public class Date {
                (_year  == date.year());
     }
 
-    public int day()                { return _day;    }
-    public void setDay(int day)     { _day = day;     }
-    public int month()              { return _month;  }
-    public void setMonth(int month) { _month = month; }
-    public int year()               { return _year;   }
-    public void setYear(int year)   { _year = year;   }
-    public int value()              { return _value;  }
-    public void setValue(int value) { _value = value; }
-    public int id()                 { return _id;     }
-    public void setId(int id)       { _id = id;       }
+    // Getter
+    public int id()      { return _id;    }
+    public int day()     { return _day;   }
+    public int month()   { return _month; }
+    public int year()    { return _year;  }
+    public int value()   { return _value; }
+    public String note() { return _note;  }
 
-    public void displayDate() {
-        Log.d("displayDate", this.day() + "/" + this.month() + "/" + this.year() + " - " + this.value());
+    // Setter
+    public void setId(int id)        { _id = id;       }
+    public void setValue(int value)  { _value = value; }
+    public void setNote(String note) { _note = note;   }
+    public void setInfos(int value, String note) {
+        _value = value;
+        _note = note;
+    }
+
+    public boolean isEmpty() {
+        return (_value == 0 && _note.equals(""));
+    }
+
+    public String getStrTime() {
+        String sign = "";
+
+        if (_value > 0) {
+            sign = "+";
+        } else if (_value < 0) {
+            sign = "-";
+        }
+
+        return sign + Math.abs(_value / 60) + "h " + Math.abs(_value % 60) + "min !";
     }
 }

@@ -1,10 +1,11 @@
 package com.krazyxx.happyhours.calendar;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -49,6 +50,9 @@ public class CalendarDisplay {
                 final CalendarAlertDialog builder = new CalendarAlertDialog(_mainActivity, _calendarDate[i], monthColor);
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(monthColor);
+                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(monthColor);
             }
         });
 
@@ -69,16 +73,14 @@ public class CalendarDisplay {
 
                         int year = _calendar.get(Calendar.YEAR);
                         int month = _calendar.get(Calendar.MONTH);
-                        if (distX > 200) {
-                            Log.d("onTouch", "Swipe Left");
+                        if (distX > 200) { // Swipe Left
                             month--;
                             if (month < 0) {
                                 year--;
                                 month = 11;
                             }
                             updateCalendar(year, month);
-                        } else if (distX < -200) {
-                            Log.d("onTouch", "Swipe Right");
+                        } else if (distX < -200) { // Swipe Right
                             month++;
                             if (month > 11) {
                                 year++;
@@ -97,7 +99,7 @@ public class CalendarDisplay {
     private void updateCalendar(int year, int month) {
         _calendar.set(year, month, 1);
 
-        ((TextView) _mainActivity.findViewById(R.id.date_month_year)).setText(getDate());
+        ((TextView) _mainActivity.findViewById(R.id.date_month_year)).setText(getStrDate());
         int monthColor = _mainActivity.getResources().getColor(_months.getColor(month));
         _mainActivity.findViewById(R.id.layout_month_year).setBackgroundColor(monthColor);
         _mainActivity.findViewById(R.id.layout_days).setBackgroundColor(monthColor);
@@ -113,7 +115,7 @@ public class CalendarDisplay {
 
             for (Date dateSaved : _mainActivity.getSavedDate()) {
                 if (date.isEqual(dateSaved)) {
-                    date.setValue(dateSaved.value());
+                    date.setInfos(dateSaved.value(), dateSaved.note());
                     break;
                 }
             }
@@ -127,14 +129,15 @@ public class CalendarDisplay {
         _calendarAdapter.notifyDataSetChanged();
     }
 
-    private String getDate() {
+
+    private String getStrDate() {
         return _months.getString(_calendar.get(Calendar.MONTH)) + ", " + _calendar.get(Calendar.YEAR);
     }
 
     public void updateDate(Date newDate) {
         for (Date date : _calendarDate) {
             if (date.isEqual(newDate)) {
-                date.setValue(newDate.value());
+                date.setInfos(newDate.value(), newDate.note());
                 break;
             }
         }

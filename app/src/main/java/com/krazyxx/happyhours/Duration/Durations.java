@@ -8,12 +8,13 @@ import com.krazyxx.happyhours.R;
 import java.util.Iterator;
 
 /**
+ * Durations class contains all duration
  * Created by Krazyxx on 23/12/2017.
  */
 
 public class Durations implements Iterable<Duration> {
+
     private Duration _durations[] = {
-            new Duration(0,   R.color.color_0,   R.id.m0),
             new Duration(15,  R.color.color_p15, R.id.p15),
             new Duration(30,  R.color.color_p30, R.id.p30),
             new Duration(45,  R.color.color_p45, R.id.p45),
@@ -24,39 +25,24 @@ public class Durations implements Iterable<Duration> {
             new Duration(-60, R.color.color_m60, R.id.m60),
     };
 
-    public int length;
+    public Durations() {}
 
-    public Durations() {
-        length = _durations.length;
-    }
-
-    public int[] getDurationTime() {
-        int times[] = new int[_durations.length];
-        for (int i = 0; i < _durations.length; i++) {
-            times[i] = _durations[i].time();
+    public int getColor(int value) {
+        if (value < -60) {
+            return R.color.color_m60;
+        } else if (value > 60) {
+            return R.color.color_p60;
+        } else {
+            for (Duration duration : _durations) {
+                if (duration.value() == value) {
+                    return duration.color();
+                }
+            }
         }
-        return times;
+
+        return R.color.color_white;
     }
 
-    public int[] getDurationColor() {
-        int times[] = new int[_durations.length];
-        for (int i = 0; i < _durations.length; i++) {
-            times[i] = _durations[i].color();
-        }
-        return times;
-    }
-
-    public int[] getDurationButton() {
-        int times[] = new int[_durations.length];
-        for (int i = 0; i < _durations.length; i++) {
-            times[i] = _durations[i].button();
-        }
-        return times;
-    }
-
-    public Duration get(int i) {
-        return _durations[i];
-    }
 
     @NonNull
     @Override
@@ -67,7 +53,7 @@ public class Durations implements Iterable<Duration> {
 
             @Override
             public boolean hasNext() {
-                return currentIndex < length && _durations[currentIndex] != null;
+                return currentIndex < _durations.length && _durations[currentIndex] != null;
             }
 
             @Override

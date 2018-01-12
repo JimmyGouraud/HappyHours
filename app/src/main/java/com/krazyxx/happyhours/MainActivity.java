@@ -3,8 +3,6 @@ package com.krazyxx.happyhours;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-
 import android.widget.TextView;
 
 import com.krazyxx.happyhours.calendar.CalendarDisplay;
@@ -16,7 +14,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public AppDatabase _database;
-
     CalendarDisplay _calendarDisplay;
 
     @Override
@@ -45,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
         String timer;
         if (durationTime > 0) {
             timer = "+";
-            durationView.setTextColor(Color.parseColor("#27ae60"));
+            durationView.setTextColor(this.getResources().getColor(R.color.color_p60));
         } else if (durationTime < 0) {
             timer = "-";
-            durationView.setTextColor(Color.parseColor("#c0392b"));
+            durationView.setTextColor(this.getResources().getColor(R.color.color_m60));
         } else {
             timer = "";
-            durationView.setTextColor(Color.parseColor("#000000"));
+            durationView.setTextColor(this.getResources().getColor(R.color.color_black));
         }
 
         timer += Math.abs(durationTime / 60) + "h " + Math.abs(durationTime % 60) + "min !";
@@ -66,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
-        _database.dateDao().insertAll(date);
+
+        if (!date.isEmpty()) {
+            _database.dateDao().insertAll(date);
+        }
+
         _calendarDisplay.updateDate(date);
         updateDuration();
     }
